@@ -32,7 +32,7 @@ chmod +x /usr/local/bin/docker-compose
 ```
 1. `wget -N --no-check-certificate https://raw.githubusercontent.com/jue0115/XrayR/main/docker-compose.yml`
 2. `chmod +x docker-compose.yml`
-3. 按照教程编辑config。
+3. 按照教程编辑/etc/XrayR/config.yml
 4. 启动docker：`docker-compose up -d`
 
 ## Docker compose升级
