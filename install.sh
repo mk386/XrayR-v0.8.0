@@ -104,29 +104,15 @@ install_XrayR() {
     fi
 
     mkdir /usr/local/XrayR/ -p
-	cd /usr/local/XrayR/
+    cd /usr/local/XrayR/
 
-    if  [ $# == 0 ] ;then
-        last_version=$(curl -Ls "https://api.github.com/repos/XrayR-project/XrayR/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-        if [[ ! -n "$last_version" ]]; then
-            echo -e "${red}检测 XrayR 版本失败，可能是超出 Github API 限制，请稍后再试，或手动指定 XrayR 版本安装${plain}"
-            exit 1
-        fi
-        echo -e "检测到 XrayR 最新版本：${last_version}，开始安装"
-        wget -q -N --no-check-certificate -O /usr/local/XrayR/XrayR-linux.zip https://github.com/XrayR-project/XrayR/releases/download/${last_version}/XrayR-linux-${arch}.zip
-        if [[ $? -ne 0 ]]; then
-            echo -e "${red}下载 XrayR 失败，请确保你的服务器能够下载 Github 的文件${plain}"
-            exit 1
-        fi
-    else
-        last_version=$1
-        url="https://github.com/XrayR-project/XrayR/releases/download/${last_version}/XrayR-linux-${arch}.zip"
-        echo -e "开始安装 XrayR v$1"
-        wget -q -N --no-check-certificate -O /usr/local/XrayR/XrayR-linux.zip ${url}
-        if [[ $? -ne 0 ]]; then
-            echo -e "${red}下载 XrayR v$1 失败，请确保此版本存在${plain}"
-            exit 1
-        fi
+    last_version='v0.8.0'
+    url="https://raw.githubusercontent.com/jue0115/XrayR/main/XrayR-linux-${arch}.zip"
+    echo -e "开始安装 XrayR v0.8.0"
+    wget -q -N --no-check-certificate -O /usr/local/XrayR/XrayR-linux.zip ${url}
+    if [[ $? -ne 0 ]]; then
+        echo -e "${red}下载 XrayR v0.8.0 失败，请确保此版本存在${plain}"
+        exit 1
     fi
 
     unzip XrayR-linux.zip
@@ -202,4 +188,4 @@ install_XrayR() {
 echo -e "${green}开始安装${plain}"
 install_base
 install_acme
-install_XrayR $1
+install_XrayR
